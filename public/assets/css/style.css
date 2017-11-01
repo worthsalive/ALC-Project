@@ -1,0 +1,174 @@
+/*=======================================
+    NAVIGATION STYLES
+==================================================*/
+.navbar a {
+    color:#ffffff !important; font-family: tahoma;
+}
+.navbar-header a {
+    color:#ffffff !important;
+    padding-right:100px;
+}
+
+nav {
+	position: absolute;
+	width: 100%;
+    background: #fff;
+    z-index:99;
+	
+}
+.fixed {
+	position: fixed; 
+	top: 0; 
+	z-index: 99;
+}
+
+.navbar-inverse {
+background-color: #cccccc;
+border-color: #05A250;
+background-image: url(bg.jpg)
+
+}
+
+
+/*=======================================
+    other STYLES
+==================================================*/
+
+.scale2x1, .scale2x{
+    transition:all .5s ease .0s;
+    
+}
+
+.scale2x1:hover{
+    transform:scale(2);
+   
+}
+
+.scale2x:hover{
+    transform:scale(1.2);
+   
+}
+.scale2{
+    transition:all .5s ease .0s;
+	
+    
+}
+
+.scale2:hover{
+  font-size:20px;
+ 
+   
+}
+.active{color:#999999;}
+              
+        
+        #na{
+    font-size:50px;color:white;
+	text-shadow:2px 0px 2px black;
+     transition:all .9s ease .0s;
+}
+
+
+
+       #na:hover{
+   
+	text-shadow:3px 2px 5px white;
+    
+}
+
+
+.scrollup{
+  opacity:0.5;
+    transition:all .4s ease .0s;
+
+}
+
+.scrollup:hover{
+    opacity:1; transform:scale(1.2);
+}
+
+
+.bg_img{
+     position:fixed; bottom:20px;left:20px;
+    opacity:0.3;
+    transition:all .4s ease .0s;
+    width:100px;height:100px; z-index:1;
+    
+}
+
+
+.bg_img:hover{
+    opacity:0.5; transform:scale(1.5);
+    
+}
+
+
+
+#blinker{color:white; font-family:calibri;}
+
+
+.drop1 li{
+
+background-color:black; border:1px solid white;
+color:white;
+ transition:all .4s ease .0s;
+  border-radius:10px;
+transform:scale(0.7);
+}
+
+.drop1 li:hover, .drop1 li:focus{
+font-family:algerian;
+transform:scale(1.2);
+background-color:#000066;
+ box-shadow: 2px 2px 2px 2px #cccccc;
+
+}
+.ser{border-radius:5px; 
+ background: transparent !important;
+	color:white;
+   transition:all .7s ease .0s;
+}
+
+.ser:hover{
+transform: scale(1.2); 
+box-shadow: 2px 2px 2px 2px #cccccc;
+   
+}
+
+.scale21 a{
+    transition:all .5s ease .0s;
+	color:black;
+    
+}
+
+.scale21 a:hover{
+  font-size:17px; font-family:algerian;
+  text-decoration:none;
+}
+footer h4{font-weight:bolder;}
+
+
+.serv{
+			font-size:45px;
+			transition:all .6s ease .0s;
+			-webkit-animation-duration: 7s;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-iteration-count: infinite;
+		}
+		
+		
+		.serv:hover{
+			text-shadow:0px 0px 10px red;
+			font-size:50px;
+		}
+
+		
+		
+.choose-content{padding:15px;}		
+
+.choose-box{
+-webkit-animation-duration: 15s;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-iteration-count: infinite;
+
+}

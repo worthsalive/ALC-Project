@@ -1,0 +1,199 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Alc Accessment - Update Student</title>
+
+  <link rel="stylesheet" href="assets/styles/style.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/materialize.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/font-awesome.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/animated.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/animate.css" type="text/css" />
+
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+  <script src="assets/js/jQuery-1.10.2.js"></script>
+  <script src="assets/js/materialize.js"></script>
+  <script src="assets/js/wow.min.js"></script>
+
+  <script>
+  //function to submit form
+  $(document).ready(function(){
+
+    $('select').material_select();
+
+    $('#ajax-spinner').hide();
+    $('#btnsubmit').on('click',function(){
+      sendForm();
+    });
+      //e.preventDefault();
+    });
+
+
+    function saveRecord(){
+//alert('hello world');
+            //capture all form input
+           var formElem = {
+             id:$('form #id').val(),
+             sname:$('form #sname').val(),
+              oname:$('form #oname').val(),
+              email:$('form #email').val(),
+              address:$('form #address').val(),
+              phone:$('form #phone').val(),
+              department:$('form #department').val(),
+              gender:$('form option:selected').text(),
+              dob:$('form #dob').val(),
+              mstatus:$('form #mstatus').val(),
+              uname:$('form #uname').val(),
+              password:$('form #password').val()
+          };
+          $('#ajax-spinner').fadeIn();
+            $.ajax({
+            type:'post',
+            url:'/update',
+            data:formElem,
+            success: function(data){
+              $('#ajax-spinner').hide();
+            Materialize.toast(data, 4000, 'rounded blue', function toastCompleted(){
+                document.location.reload();
+              });
+            }
+    });
+    return false;
+  }
+
+
+   </script>
+</head>
+
+<body>
+
+  <% include partials/header.ejs %>
+
+<div class="row card-panel center">
+
+<!---form secttion --->
+<div class="col hide-on-small-only m3 l3"></div>
+
+<form class="col s12 m6 l6 center card" action="/update" method="post" onsubmit="return sendForm();">
+<input type="hidden" name="id" id="id" value="<%= data[0].id %>">
+  <div class="row">
+    <h5 class="card-title">
+    Update Details of <%= data[0].surname + ' ' + data[0].other_names %>
+    </h5>
+  </div>
+<div class="row">
+  <div class="input-field col s6">
+    <i class="material-icons prefix"><b class="fa fa-user-circle"></b></i>
+    <input placeholder="Surname" id="sname" name="sname"
+    type="text" class="validate" required value="<%= data[0].surname %>">
+    <label for="sname" class="">Surname</label>
+  </div>
+  <div class="input-field col s6">
+    <label for="oname">Other names</label>
+    <input id="oname" type="text" placeholder="Other names"
+    class="validate" required name="oname" value="<%= data[0].other_names %>">
+  </div>
+</div>
+
+<div class="row">
+<div class="input-field col s12">
+  <i class="material-icons prefix"><b class="fa fa-envelope"></b></i>
+<input placeholder="Email" id="email" name="email" type="email"
+class="validate" value="<%= data[0].email %>">
+<label for="email" class="">Email</label>
+</div>
+</div>
+
+<div class="row">
+<div class="input-field col s12">
+<i class="material-icons prefix"><b class="fa fa-address-book-o"></b></i>
+<textarea id="address" name="address" class="materialize-textarea"><%= data[0].address %></textarea>
+<label for="address" class="">Address</label>
+</div>
+</div>
+
+<div class="row">
+<div class="input-field col s12">
+  <i class="material-icons prefix"><b class="fa fa-phone"></b></i>
+<input placeholder="phone" id="phone" type="tel"
+class="validate" name="phone" required value="<%= data[0].phone %>">
+<label for="phone" class="">Phone</label>
+</div>
+</div>
+
+<div class="row">
+<div class="input-field col s12">
+  <i class="material-icons prefix"><b class="fa fa-class"></b></i>
+<input placeholder="Department" id="department" type="text"
+class="validate" name="deparment" required value="<%= data[0].department %>">
+<label for="department" class="">Department</label>
+</div>
+</div>
+
+<div class="row">
+<div class="input-field col s12"><label for="dob">Date of Birth</label><br /><br />
+  <i class="material-icons prefix"><b class="fa fa-calendar"></b></i>
+    <input placeholder="" id="dob" name="dob" type="date" class="" value="<%= data[0].dob %>">
+
+</div>
+</div>
+
+<div class="row">
+  <div class="col s12 left">
+    <p>
+    <label>Gender</label>
+  </p>
+    <select  name="gender" id="gender">
+      <option class="blue-text" value="Male" <% if(data[0].gender == 'Male'){ %><%= 'selected' %> <% } %>>Male</option>
+      <option class="blue-text" value="Female" <% if(data[0].gender == 'Female'){ %><%= 'selected' %> <% } %>>Female</option>
+  </select>
+
+    </div>
+</div>
+
+<div class="row">
+      <div class="col s12">
+      <p>
+        <label>Marital Status</label>
+      </p>
+      <select  name="mstatus" id="mstatus">
+        <option class="blue-text" value="Single" <% if(data[0].mstatus == 'Single'){ %><%= 'selected' %> <% } %>>Single</option>
+        <option class="blue-text" value="Married" <% if(data[0].mstatus == 'Married'){ %><%= 'selected' %> <% } %>>Married</option>
+        <option class="blue-text" value="Divorced" <% if(data[0].mstatus == 'Divorced'){ %><%= 'selected' %> <% } %>>Divorced</option>
+      </select>
+      </div>
+</div>
+
+
+<div class="row">
+<div class="input-field col s6">
+  <i class="material-icons prefix"><b class="fa fa-user-circle-o"></b></i>
+  <input placeholder="Username" value="<%= data[0].username %>" id="uname" name="uname"
+  type="text" class="validate" required>
+  <label for="uname">Username</label>
+</div>
+
+<div class="input-field col s6">
+  <i class="prefix material-icons"></i>
+
+  <input id="password" type="password" placeholder="Password"
+  class="validate" required name="password" value="<%= data[0].password %>">
+  <label for="password">Password</label>
+</div>
+</div>
+<P id="response"></P>
+<div class="card-action">
+<button class="btn waves-effect waves-light blue-grey" id="btnsubmit" type="button" onclick="saveRecord();">Save <i
+class="material-icons" ><b class="fa fa-floppy-o"></b></i></button>
+
+<button class="btn waves-effect waves-light red-fade-in-out" type="reset"> Clear
+<i class="material-icons"><b class="fa fa-eraser"></b></i></button>
+</div>
+</form>
+
+<div class="col hide-on-small-only m3 l3"></div>
+<!--/end form section -->
+
+</div>
+</body>
+</html>

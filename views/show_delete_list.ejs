@@ -1,0 +1,72 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Alc Accessment - Update Student</title>
+
+  <link rel="stylesheet" href="assets/styles/style.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/materialize.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/font-awesome.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/animated.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/animate.css" type="text/css" />
+
+
+  <script src="assets/js/jQuery-1.10.2.js"></script>
+  <script src="assets/js/materialize.js"></script>
+  <script src="assets/js/wow.min.js"></script>
+
+<script>
+  //function to delete student Record
+  function deleteRec(obj){
+    var values = obj.getAttribute('data-value').split('-');
+    //show confirmaiton dialogu before proceeding
+    var c = confirm("Are you sure to delete Student '"+values[0]+"' with id '"+values[1]+"'");
+    if(c){//if confirmation true
+        $.ajax({
+          type:'delete',
+          url:'/crud',
+          data:{id:values[1]},
+          success: function(data){
+            Materialize.toast(data,3000,'rounded blue',function toastCompleted(){
+              document.location.reload();//reload document
+            });
+          }//end success callback
+        });//End ajax
+      }//end if cnfirmation true
+    }
+</script>
+</head>
+
+<body>
+
+  <% include partials/header.ejs %>
+
+<div class="row card-panel center">
+
+<!---form secttion --->
+<div class="col hide-on-small-only m3 l3"></div>
+
+<form class="col s12 m6 l6 center card" action="/update" method="post" onsubmit="return sendForm();">
+<ul class="collection">
+  <li class="collection-header"><h4>Click an Item to Delete</h4></li>
+  <% for(x=0; x < dl; x++){ %>
+    <li class="collection-item avatar hoverable deleteable tooltipped" data-tooltip="Delete <%= data[x].surname+' '+data[x].other_names %>'s record" data-dalay="50" data-position="top" data-value="<%= data[x]['surname']+' '+ data[x]['other_names']+ '-' + data[x]['id'] %>" onclick="deleteRec(this);">
+  <%  if(data[x].gender == 'female'){ %>
+    <img src="" alt="" class="circle"/>
+  <%  }else{ %>
+    <span class="circle"><i class="fa fa-male"></i></span>
+  <%  } %>
+  <span class="title"><b><%= data[x].surname + ' ' + data[x].other_names %></b></span>
+  <p><strong>Department:</strong> <%= data[x].department %>  <br />
+    <i class="fa fa-envelope"></i>: <%= data[x].email %>  <br />
+    <i class="fa fa-phone"></i>: <%= data[x].phone %>  <br />
+  </p>
+  <b class="btn btn-floating red secondary-content"><i class="fa fa-trash"></i></b>
+<%  } %>
+</ul>
+
+<div class="col hide-on-small-only m3 l3"></div>
+
+</div>
+</body>
+</html>

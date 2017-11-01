@@ -1,0 +1,90 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Alc Accessment - Student view</title>
+
+  <link rel="stylesheet" href="assets/styles/style.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/materialize.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/font-awesome.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/animated.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/animate.css" type="text/css" />
+
+
+  <script src="assets/js/jQuery-1.10.2.js"></script>
+  <script src="assets/js/materialize.js"></script>
+  <script src="assets/js/wow.min.js"></script>
+
+  <script>
+  //function to submit form
+  $(document).ready(function(){
+
+
+    });
+
+    //function to delete student Record
+    function deleteRec(obj){
+      var values = obj.getAttribute('data-value').split('-');
+      //show confirmaiton dialogu before proceeding
+      var c = confirm("Are you sure to delete Student '"+values[0]+"' with id '"+values[1]+"'");
+      if(c){//if confirmation true
+          $.ajax({
+            type:'delete',
+            url:'/crud',
+            data:{id:values[1]},
+            success: function(data){
+              Materialize.toast(data,3000,'rounded blue',function toastCompleted(){
+                document.location.reload();//reload document
+              });
+            }//end success callback
+          });//End ajax
+        }//end if cnfirmation true
+      }
+  </script>
+</head>
+
+<body>
+  <% include partials/header.ejs %>
+
+<div class="row card-panel center">
+
+<div class="col s12 m12 l12">
+  <div style="overflow-x:auto;">
+      <table class="responsive-table highlight bordered">
+          <thead>
+            <tr>
+              <% for(i=0; i < fl; i++){
+                var fieldname = field[i].name.split('_').join(' ')
+                %>
+
+                  <th> <%= fieldname %> </th>
+                <% } %>
+              <th>
+                Actions
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% for(r = 0; r < dl; r++){ %>
+              <tr>
+                <% for(x = 0; x < fl; x++){ f=field[x].name %>
+                  <td> <%= data[r][f] %></td>
+                  <% } %>
+                <td>
+                  <a href="update?sid=<%= data[r]['id'] %>" class=" btn btn-floating teal waves tooltipped " data-delay="50" data-position="top" data-tooltip="Click to Edit and Update Student record"><span><i class='fa fa-edit'></i></span></a> &nbsp;
+                  <b class="hoverable btn btn-floating red waves tooltipped" data-value="<%= data[r]['surname']+' '+ data[r]['Other_names']+ '-' + data[r]['id'] %>" onclick="deleteRec(this);"  data-delay="50" data-position="top" data-tooltip="Click to Delete Student record"><span><i class='fa fa-trash'></i></span></b>
+                </td>
+              </tr>
+              <% } %>
+
+
+
+          </tbody>
+        </table>
+      </div>
+</div>
+
+</div>
+</body>
+</html>
